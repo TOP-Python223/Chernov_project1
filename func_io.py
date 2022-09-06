@@ -26,5 +26,24 @@ def merge_turn_field(turn : int, field):
 #   field - игровое поле
 #   player - игрок (0 - играющий Х, 1 - играющий О)
 def print_playing_field(field, player):
-    pass
+    if player == 0:
+        start_char = ' ' * (term_size_x - field_width)
+    else:
+        start_char = ''
+    for i in range(field_size_y):
+        print(start_char, end = '')
+        for j in range(field_size_x):
+            if j == field_size_x - 1:
+                finish_char = ''
+            else:
+                finish_char = '|'
+            if field[i][j] == 0:
+                print_char = ' '
+            elif field[i][j] % 2 == 1:
+                print_char = 'Х'
+            else:
+                print_char = 'O'
+            print(print_char, end = finish_char)
+        print()
+        if i < field_size_y - 1: print(start_char + '-' * field_width)
 
