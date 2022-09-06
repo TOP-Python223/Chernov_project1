@@ -19,7 +19,8 @@ def input_turn(player):
 #   turn - номер выбранной клетки
 #   field - игровое поле
 def merge_turn_field(turn : int, field):
-    pass
+    turn_number: int = max(sum(field, [])) + 1
+    field[turn // field_size_x][turn % field_size_x] = turn_number
 
 # отображение игрового поля
 #   field - игровое поле
