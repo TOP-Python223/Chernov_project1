@@ -8,7 +8,11 @@ field_width = (field_size_x * 2 - 1)
 # параметры:
 #   player - игрок (0 - играющий Х, 1 - играющий О)
 def input_turn(player):
-    pass
+    if player == 1:
+        sign_char = 'Х'
+    else:
+        sign_char = 'О'
+    return input(f'Input turn for {sign_char} player>')
 
 # добавление хода в структкру игрового поля
 # параметры:
