@@ -1,18 +1,24 @@
 """Модуль верхнего уровня для учебного проекта."""
 
-from func_io import print_playing_field, merge_turn_field, input_turn
+from func_io import *
+# import func_io
+# print_playing_field, merge_turn_field, input_turn
 
 # структура игрового поля
 field = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 # номер текущего игрока (0 - играющий Х, 1 - играющий О)
-player = 0
+players = {'curr_player': 0, 'playerХ': {'name': ''}, 'playerO': {'name': ''}}
 # field = [[0, 5, 1],[0, 2, 3],[0, 0, 4]]
 
 
 while True:
-    player = (player + 1) % 2
-    print_playing_field(field, player)
-    turn = input_turn(player)
+    # отображаем игровое поле
+    print_playing_field(field, players)
+    # запрашиваем ход или командbpу игрока
+    turn = input_turn(players)
+    # выход при пустом вводе (пока)
     if turn == '':
         break
+    # заносим ход во внутреннее представление
     merge_turn_field(int(turn), field)
+    players['curr_player'] = (players['curr_player'] + 1) % 2

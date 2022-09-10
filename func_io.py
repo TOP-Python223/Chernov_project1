@@ -11,12 +11,28 @@ field_width = (field_size_x * 2 - 1)
 # ввод команды игрока и её обработка
 # параметры:
 #   player - игрок (0 - играющий Х, 1 - играющий О)
-def input_turn(player):
-    if player == 1:
+# возвращает словарь структурой:
+# {'turn': 1, 'err_code': 0, 'err_mess': ''}
+# где:
+# turn номер хода при правильном выборе,
+# err_code - код ошибки, 0 ошибки нет,
+# err_mess - текст ошибки, '' ошибки нет
+def input_turn(players):
+    res = {'turn': 0, 'err_code': 0, 'err_mess': ''}
+    if players['curr_player'] == 1:
         sign_char = 'Х'
     else:
         sign_char = 'О'
-    return input(f'Input turn for {sign_char} player>')
+    # строка, которую ввел пользователь в запросе хода
+    input_string = input(f'Input turn for {sign_char} player>')
+    try:
+        input_int = int(input_string)
+    except:
+        input_int = None
+    # if field[turn // field_size_x][turn % field_size_x] > 0:
+    #     res['err_code'] = -1
+    #     res['err_mess'] = f'Клетка с индексом {input_int} уже занята'
+    return input_int
 
 # добавление хода в структкру игрового поля
 # параметры:
@@ -29,11 +45,11 @@ def merge_turn_field(turn : int, field):
 # отображение игрового поля
 #   field - игровое поле
 #   player - игрок (0 - играющий Х, 1 - играющий О)
-def print_playing_field(field, player):
-    if player == 0:
-        start_char = ' ' * (term_size_x - field_width)
-    else:
+def print_playing_field(field, players):
+    if players['curr_player'] == 0:
         start_char = ''
+    else:
+        start_char = ' ' * (term_size_x - field_width)
     for i in range(field_size_y):
         print(start_char, end = '')
         for j in range(field_size_x):
@@ -49,5 +65,6 @@ def print_playing_field(field, player):
                 print_char = 'O'
             print(print_char, end = finish_char)
         print()
-        if i < field_size_y - 1: print(start_char + '-' * field_width)
+        if i < field_size_y - 1:
+            print(start_char + '-' * field_width)
 
