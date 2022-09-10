@@ -64,10 +64,7 @@ def print_playing_field(field, players):
     for i in range(field_size_y):
         print(start_char, end='')
         for j in range(field_size_x):
-            if j == field_size_x - 1:
-                finish_char = ''
-            else:
-                finish_char = '|'
+            finish_char = '' if j == field_size_x - 1 else '|'
             if field[i][j] == 0:
                 print_char = ' '
             elif field[i][j] % 2 == 1:
