@@ -11,12 +11,7 @@ field_width = (field_size_x * 2 - 1)
 # ввод команды игрока и её обработка
 # параметры:
 #   player - игрок (0 - играющий Х, 1 - играющий О)
-# возвращает словарь структурой:
-# {'turn': 1, 'err_code': 0, 'err_mess': ''}
-# где:
-# turn номер хода при правильном выборе,
-# err_code - код ошибки, 0 ошибки нет,
-# err_mess - текст ошибки, '' ошибки нет
+# возвращает введенную пользователем строку
 def input_turn(players):
     res = {'turn': 0, 'err_code': 0, 'err_mess': ''}
     if players['curr_player'] == 0:
@@ -26,14 +21,15 @@ def input_turn(players):
     # строка, которую ввел пользователь в запросе хода
     str = players['player'][players['curr_player']]['name']
     input_string = input(f'Input turn \"{str}\" for {sign_char} player>')
-    try:
-        input_int = int(input_string)
-    except:
-        input_int = None
-    # if field[turn // field_size_x][turn % field_size_x] > 0:
-    #     res['err_code'] = -1
-    #     res['err_mess'] = f'Клетка с индексом {input_int} уже занята'
-    return input_int
+    # try:
+    #     input_int = int(input_string)
+    # except:
+    #     input_int = None
+    # # if field[turn // field_size_x][turn % field_size_x] > 0:
+    # #     res['err_code'] = -1
+    # #     res['err_mess'] = f'Клетка с индексом {input_int} уже занята'
+    # return input_int
+    return input_string
 
 # добавление хода в структкру игрового поля
 # параметры:
