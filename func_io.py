@@ -19,12 +19,13 @@ field_width = (field_size_x * 2 - 1)
 # err_mess - текст ошибки, '' ошибки нет
 def input_turn(players):
     res = {'turn': 0, 'err_code': 0, 'err_mess': ''}
-    if players['curr_player'] == 1:
+    if players['curr_player'] == 0:
         sign_char = 'Х'
     else:
         sign_char = 'О'
     # строка, которую ввел пользователь в запросе хода
-    input_string = input(f'Input turn for {sign_char} player>')
+    str = players['player'][players['curr_player']]['name']
+    input_string = input(f'Input turn \"{str}\" for {sign_char} player>')
     try:
         input_int = int(input_string)
     except:
