@@ -44,13 +44,14 @@ def input_turn(players):
     # return input_string
 
 
-# добавление хода в структкру игрового поля
+# добавление хода в структуру игрового поля
 # параметры:
 #   turn - номер выбранной клетки
 #   field - игровое поле
-def merge_turn_field(turn : int, field):
+def merge_turn_field(turn: int, field):
     turn_number: int = max(sum(field, [])) + 1
     field[turn // field_size_x][turn % field_size_x] = turn_number
+
 
 # отображение игрового поля
 #   field - игровое поле
@@ -59,9 +60,9 @@ def print_playing_field(field, players):
     if players['curr_player'] == 0:
         start_char = ''
     else:
-        start_char = ' ' * (term_size_x - field_width)
+        start_char = ' '*(term_size_x - field_width)
     for i in range(field_size_y):
-        print(start_char, end = '')
+        print(start_char, end='')
         for j in range(field_size_x):
             if j == field_size_x - 1:
                 finish_char = ''
@@ -73,8 +74,8 @@ def print_playing_field(field, players):
                 print_char = 'Х'
             else:
                 print_char = 'O'
-            print(print_char, end = finish_char)
+            print(print_char, end=finish_char)
         print()
         if i < field_size_y - 1:
-            print(start_char + '-' * field_width)
+            print(start_char + '-'*field_width)
 

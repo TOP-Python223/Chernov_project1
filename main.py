@@ -6,9 +6,16 @@ import func_io
 
 
 # структура игрового поля
-field = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+field = [[0, 0, 0],
+         [0, 0, 0],
+         [0, 0, 0]]
 # номер текущего игрока (0 - играющий Х, 1 - играющий О)
-players = {'curr_player': 0, 'player': [{'name': '', 'age': 0}, {'name': '','age': 0}]}
+players = {'curr_player': 0,
+           'player': [
+               {'name': '', 'age': 0},
+               {'name': '','age': 0}
+            ]
+           }
 # field = [[0, 5, 1],[0, 2, 3],[0, 0, 4]]
 players['player'][0] = {'name': 'Паша', 'age': 11}
 players['player'][1] = {'name': 'Сева', 'age': 14}
