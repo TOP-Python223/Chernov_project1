@@ -1,26 +1,38 @@
 """Модуль с функциями ввода/вывода для игры крестики-нолики."""
+
 # количество клеток игрового поля по горизонтали
 field_size_x: int = 3
-# размер окна терминала по гризонтали в символах
+# размер окна терминала по горизонтали в символах
 term_size_x: int = 80
 # количество клеток игрового поля по вертикали
 field_size_y: int = 3
 # размер игрового поля по горизонтали в символах
 field_width = (field_size_x * 2 - 1)
 
+
 # ввод команды игрока и её обработка
 # параметры:
 #   player - игрок (0 - играющий Х, 1 - играющий О)
 # возвращает введенную пользователем строку
 def input_turn(players):
-    res = {'turn': 0, 'err_code': 0, 'err_mess': ''}
-    if players['curr_player'] == 0:
-        sign_char = 'Х'
-    else:
+    # res = {'turn': 0, 'err_code': 0, 'err_mess': ''}
+    # ИСПОЛЬЗОВАТЬ: приведение к bool
+    if players['curr_player']:
         sign_char = 'О'
-    # строка, которую ввел пользователь в запросе хода
-    str = players['player'][players['curr_player']]['name']
-    input_string = input(f'Input turn \"{str}\" for {sign_char} player>')
+    else:
+        sign_char = 'Х'
+    pl_name = players['player'][players['curr_player']]['name']
+    # ИСПОЛЬЗОВАТЬ: цикл для проверки пользовательского ввода
+    while True:
+        # строка, которую ввел пользователь в запросе хода
+        input_string = input(
+            f'Input turn "{pl_name}" for {sign_char} player>'
+        ).strip()
+        if input_string.isdecimal():
+            # доп проверки при необходимости
+            return input_string
+        else:
+            print('введите номер ячейки поля или пустую строку если хотите сохранить незавершённую партию и выйти')
     # try:
     #     input_int = int(input_string)
     # except:
@@ -29,7 +41,8 @@ def input_turn(players):
     # #     res['err_code'] = -1
     # #     res['err_mess'] = f'Клетка с индексом {input_int} уже занята'
     # return input_int
-    return input_string
+    # return input_string
+
 
 # добавление хода в структкру игрового поля
 # параметры:
