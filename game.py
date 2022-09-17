@@ -64,6 +64,7 @@ def merge_turn_field(turn: int, field):
 # отображение игрового поля
 #   field - игровое поле
 #   player - игрок (0 - играющий Х, 1 - играющий О)
+# возврат: строка игрового поля по домашнему заданию # HW_09.04.txt
 def show_field(field, players) -> str:
     result = ''
     if players['curr_player']:
@@ -91,8 +92,9 @@ def show_field(field, players) -> str:
 
 
 # Проверка выигрышного хода
-# вход: объект с данными о сделанных ходах
+#    field  - игровое поле
+#    turn   - номер хода
 # возврат: bool - есть ли на поле победная комбинация (столбец/строка/диагональ целиком заполненная одним символом)
 # stdout: None
-def check_win(field) -> bool:
+def check_win(field, turn: int) -> bool:
     pass
