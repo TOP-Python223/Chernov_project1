@@ -22,7 +22,6 @@ c_marks = ('X', 'O')
 #   player - игрок (0 - играющий Х, 1 - играющий О)
 # возвращает введенную пользователем строку
 def input_turn(players):
-    # res = {'turn': 0, 'err_code': 0, 'err_mess': ''}
     # ИСПОЛЬЗОВАТЬ: приведение к bool
     if players['curr_player']:
         sign_char = c_marks[1]
@@ -89,3 +88,11 @@ def show_field(field, players) -> str:
             #
             result = result + start_char + '—' * (c_field_width) + '\n'
     return result
+
+
+# Проверка выигрышного хода
+# вход: объект с данными о сделанных ходах
+# возврат: bool - есть ли на поле победная комбинация (столбец/строка/диагональ целиком заполненная одним символом)
+# stdout: None
+def check_win(field) -> bool:
+    pass
