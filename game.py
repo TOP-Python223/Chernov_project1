@@ -71,20 +71,20 @@ def show_field(p_field, p_players) -> str:
         start_char = ' '*(c_term_width - c_field_width)
     else:
         start_char = ''
-    for i in range(c_field_rows):
+    for r in range(c_field_rows):
         result = result + start_char
-        for j in range(c_field_columns):
-            finish_char = '' if j == c_field_columns - 1 else '|'
-            if p_field[i][j] == 0:
+        for c in range(c_field_columns):
+            finish_char = '' if c == c_field_columns - 1 else '|'
+            if p_field[r][c] == 0:
                 print_char = ' '
-            elif p_field[i][j] % 2:
+            elif p_field[r][c] % 2:
                 print_char = c_marks[0]
             else:
                 print_char = c_marks[1]
             # print(print_char, end=finish_char)
             result = result + print_char.center(c_cell_width) + finish_char
         result = result + '\n'
-        if i < c_field_rows - 1:
+        if r < c_field_rows - 1:
             # print(start_char + '-'*c_field_width)
             #
             result = result + start_char + '—' * (c_field_width) + '\n'
@@ -97,4 +97,16 @@ def show_field(p_field, p_players) -> str:
 # возврат: bool - есть ли на поле победная комбинация (столбец/строка/диагональ целиком заполненная одним символом)
 # stdout: None
 def check_win(p_field, p_turn: int) -> bool:
+    # Проверка выигрышного хода по горизонтали
+    def check_row() -> bool:
+        pass
+
+    # Проверка выигрышного хода по вертикали
+    def check_column() -> bool:
+        pass
+
+    # Проверка выигрышного хода по диагонали
+    def check_cross() -> bool:
+        pass
+
     pass
