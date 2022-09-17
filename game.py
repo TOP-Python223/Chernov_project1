@@ -6,10 +6,12 @@
 c_field_columns: int = 3
 # количество клеток игрового поля по вертикали
 c_field_rows: int = 3
+# размер одной ячейки по горизонтали в символах
+c_cell_width: int = 3
 # размер окна терминала по горизонтали в символах
 c_term_width: int = 80
 # размер игрового поля по горизонтали в символах
-c_field_width = c_field_columns * 2 - 1
+c_field_width = c_field_columns * c_cell_width + c_field_columns - 1
 # символы для обозначения ходов на игровом поле
 c_marks = ('X', 'O')
 
@@ -75,14 +77,15 @@ def show_field(field, players) -> str:
             finish_char = '' if j == c_field_columns - 1 else '|'
             if field[i][j] == 0:
                 print_char = ' '
-            elif field[i][j] % 2 == 1:
-                print_char = 'Х'
+            elif field[i][j] % 2:
+                print_char = c_marks[0]
             else:
-                print_char = 'O'
+                print_char = c_marks[1]
             # print(print_char, end=finish_char)
-            result = result + print_char + finish_char
+            result = result + print_char.center(c_cell_width) + finish_char
         result = result + '\n'
         if i < c_field_rows - 1:
-            # print(start_char + '-'*field_width)
-            result = result + '-'* c_field_width
-
+            # print(start_char + '-'*c_field_width)
+            #
+            result = result + start_char + '—' * (c_field_width) + '\n'
+    return result

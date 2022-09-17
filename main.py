@@ -1,6 +1,6 @@
 """Модуль верхнего уровня для учебного проекта."""
 
-import func_io
+import game
 # import func_io
 # print_playing_field, merge_turn_field, input_turn
 
@@ -23,13 +23,13 @@ players['player'][1] = {'name': 'Сева', 'age': 14}
 
 while True:
     # отображаем игровое поле
-    func_io.print_playing_field(field, players)
-
+    str_field = game.show_field(field, players)
+    print(str_field)
     # запрашиваем ход или команду игрока
-    turn = func_io.input_turn(players)
+    turn = game.input_turn(players)
     # выход при пустом вводе (пока)
     if turn == '':
         break
     # заносим ход во внутреннее представление
-    func_io.merge_turn_field(int(turn), field)
+    game.merge_turn_field(int(turn), field)
     players['curr_player'] = (players['curr_player'] + 1) % 2
