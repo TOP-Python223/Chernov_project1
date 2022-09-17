@@ -19,15 +19,15 @@ c_marks = ('X', 'O')
 # -----------------------------------------------------------------------------
 # ввод команды игрока и её обработка
 # параметры:
-#   player - игрок (0 - играющий Х, 1 - играющий О)
+#   p_player - игрок (0 - играющий Х, 1 - играющий О)
 # возвращает введенную пользователем строку
-def input_turn(players):
+def input_turn(p_players):
     # ИСПОЛЬЗОВАТЬ: приведение к bool
-    if players['curr_player']:
+    if p_players['curr_player']:
         sign_char = c_marks[1]
     else:
         sign_char = c_marks[0]
-    pl_name = players['player'][players['curr_player']]['name']
+    pl_name = p_players['player'][p_players['curr_player']]['name']
     # ИСПОЛЬЗОВАТЬ: цикл для проверки пользовательского ввода
     while True:
         # строка, которую ввел пользователь в запросе хода
@@ -54,20 +54,20 @@ def input_turn(players):
 
 # добавление хода в структуру игрового поля
 # параметры:
-#   turn - номер выбранной клетки
-#   field - игровое поле
-def merge_turn_field(turn: int, field):
-    turn_number: int = max(sum(field, [])) + 1
-    field[turn // c_field_columns][turn % c_field_rows] = turn_number
+#   p_turn - номер выбранной клетки
+#   p_field - игровое поле
+def merge_turn_field(p_turn: int, p_field):
+    turn_number: int = max(sum(p_field, [])) + 1
+    p_field[p_turn // c_field_columns][p_turn % c_field_rows] = turn_number
 
 
 # отображение игрового поля
-#   field - игровое поле
-#   player - игрок (0 - играющий Х, 1 - играющий О)
+#   p_field - игровое поле
+#   p_player - игрок (0 - играющий Х, 1 - играющий О)
 # возврат: строка игрового поля по домашнему заданию # HW_09.04.txt
-def show_field(field, players) -> str:
+def show_field(p_field, p_players) -> str:
     result = ''
-    if players['curr_player']:
+    if p_players['curr_player']:
         start_char = ' '*(c_term_width - c_field_width)
     else:
         start_char = ''
@@ -75,9 +75,9 @@ def show_field(field, players) -> str:
         result = result + start_char
         for j in range(c_field_columns):
             finish_char = '' if j == c_field_columns - 1 else '|'
-            if field[i][j] == 0:
+            if p_field[i][j] == 0:
                 print_char = ' '
-            elif field[i][j] % 2:
+            elif p_field[i][j] % 2:
                 print_char = c_marks[0]
             else:
                 print_char = c_marks[1]
@@ -92,9 +92,9 @@ def show_field(field, players) -> str:
 
 
 # Проверка выигрышного хода
-#    field  - игровое поле
-#    turn   - номер хода
+#    p_field  - игровое поле
+#    p_turn   - номер хода
 # возврат: bool - есть ли на поле победная комбинация (столбец/строка/диагональ целиком заполненная одним символом)
 # stdout: None
-def check_win(field, turn: int) -> bool:
+def check_win(p_field, p_turn: int) -> bool:
     pass
