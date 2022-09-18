@@ -21,6 +21,10 @@ players['player'][0] = {'name': 'Паша', 'age': 11}
 players['player'][1] = {'name': 'Сева', 'age': 14}
 
 
+
+field = [[0, 2, 4],
+         [1, 3, 0],
+         [0, 0, 0]]
 while True:
     # отображаем игровое поле
     str_field = game.show_field(field, players)
@@ -32,4 +36,9 @@ while True:
         break
     # заносим ход во внутреннее представление
     game.merge_turn_field(int(turn), field)
+    if game.check_win(field, turn):
+        print('Celebration! YRW!!!')
+        str_field = game.show_field(field, players)
+        print(str_field)
+        break
     players['curr_player'] = (players['curr_player'] + 1) % 2
