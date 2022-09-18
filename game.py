@@ -36,7 +36,7 @@ def input_turn(p_players):
         ).strip()
         if input_string.isdecimal():
             # доп проверки при необходимости
-            return input_string
+            return int(input_string)
         elif not input_string:
             return ''
         else:
@@ -97,16 +97,25 @@ def show_field(p_field, p_players) -> str:
 # возврат: bool - есть ли на поле победная комбинация (столбец/строка/диагональ целиком заполненная одним символом)
 # stdout: None
 def check_win(p_field, p_turn: int) -> bool:
-    # Проверка выигрышного хода по горизонтали
+    # Проверка текущего хода по горизонтали на выигрыш
+    # горизонталь вычисляется как деление нацело хода на количество столбцов
+    # количество четных или нечетных должно быть равно 3 по условиям задания
     def check_row() -> bool:
-        pass
+        count = 0
+        for c in range(c_field_columns):
+            count += (p_field[p_turn//c_field_columns][c] % 2 == p_turn % 2)
+        return count == c_field_columns
 
-    # Проверка выигрышного хода по вертикали
+    # Проверка текущего хода по вертикали на выигрыш
     def check_column() -> bool:
-        pass
+        count = 0
+        for r in range(c_field_rows):
+            count += (p_field[r][p_turn//c_field_rows] % 2 == p_turn % 2)
+        return count == c_field_rows
 
-    # Проверка выигрышного хода по диагонали
+    # Проверка текущего хода по диагоналям на выигрыш
     def check_cross() -> bool:
-        pass
+        return False
 
-    pass
+    return check_row() or check_column() or check_cross()
+
