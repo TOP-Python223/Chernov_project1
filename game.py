@@ -103,19 +103,26 @@ def check_win(p_field, p_turn: int) -> bool:
     def check_row() -> bool:
         count = 0
         for c in range(c_field_columns):
-            count += (p_field[p_turn//c_field_columns][c] % 2 == p_turn % 2)
+            count += (p_field[p_turn // c_field_columns][c] % 2 == p_turn % 2) and (p_field[p_turn // c_field_columns][c] != 0)
         return count == c_field_columns
 
     # Проверка текущего хода по вертикали на выигрыш
+    #
     def check_column() -> bool:
+        # return False
         count = 0
         for r in range(c_field_rows):
-            count += (p_field[r][p_turn//c_field_rows] % 2 == p_turn % 2)
+            if p_field[0][p_turn % c_field_rows] != 0:
+                v_check = p_field[0][p_turn % c_field_rows]
+            else:
+                v_check = 0
+            count += (p_field[r][p_turn % c_field_rows] % 2 == v_check % 2) and (p_field[r][p_turn % c_field_rows] != 0)
         return count == c_field_rows
 
     # Проверка текущего хода по диагоналям на выигрыш
     def check_cross() -> bool:
         return False
 
+    # тело функции check_win
     return check_row() or check_column() or check_cross()
 
