@@ -7,7 +7,7 @@ CELL_WIDTH: int = 3
 # количество клеток игрового поля по горизонтали
 FIELD_COLUMNS: int = 3
 # количество клеток игрового поля по вертикали
-FIELD_ROWS: int = 4
+FIELD_ROWS: int = 3
 # размер игрового поля по горизонтали в символах
 FIELD_WIDTH = FIELD_COLUMNS * CELL_WIDTH + FIELD_COLUMNS - 1
 # размер окна терминала по горизонтали в символах
