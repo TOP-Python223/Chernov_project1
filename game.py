@@ -36,10 +36,8 @@ def merge_turn_field(p_field, p_turn: int):
     #   p_turn - номер выбранной клетки
     #   p_field - игровое поле
     turn_number: int = max(sum(p_field, [])) + 1
-    # p_field[p_turn // G.FIELD_COLUMNS][p_turn % G.FIELD_ROWS] = turn_number
-    # p_field[p_turn // G.FIELD_ROWS][p_turn % G.FIELD_COLUMNS] = turn_number
-    p_field[p_turn % G.FIELD_COLUMNS][p_turn // G.FIELD_ROWS] = turn_number
-
+    # так делать можно только до 3х3
+    p_field[p_turn // G.FIELD_ROWS][p_turn % G.FIELD_COLUMNS] = turn_number
 
 def show_field(p_field, p_players) -> str:
     """функция возвращает строку игрового поля для отображения"""
@@ -79,18 +77,17 @@ def check_win(p_field, p_turn: int) -> bool:
     #    p_turn - 0 ход первого игрока, 1 - второго
     #    возврат: bool - есть ли на поле победная комбинация (столбец/строка/диагональ целиком заполненная одним символом)
     #    stdout: None
-    p_turn
     def check_row() -> bool:
         """по горионтали"""
         #    вход: None
-        #    возврат: bool - есть ли на горизанале победная комбинация
+        #    возврат: bool - есть ли на горизонтали победная комбинация
         # горизонталь вычисляется как деление нацело хода на количество столбцов
         # количество четных или нечетных должно быть равно 3 по условиям задания
         count = 0
         for c in range(G.FIELD_COLUMNS):
-            count += (p_field[p_turn // G.FIELD_COLUMNS][c] % 2 == p_turn % 2) and (
-                    p_field[p_turn // G.FIELD_COLUMNS][c] != 0)
-        return count == G.FIELD_COLUMNS
+            count += (p_field[p_turn // G.FIELD_COLUMNS][c] % 2 == p_turn % 2) \
+                     and (p_field[p_turn // G.FIELD_COLUMNS][c] != 0)
+        return count == G.COUNT_WIN
 
     def check_column() -> bool:
         """по вертикали"""
@@ -99,20 +96,16 @@ def check_win(p_field, p_turn: int) -> bool:
         # вертикаль вычисляется как деление нацело хода на количество столбцов
         # количество четных или нечетных должно быть равно 3 по условиям задания
         count = 0
-        v_col = p_turn // G.FIELD_ROWS
-        for r in range(G.FIELD_ROWS):
-            if p_field[0][p_turn % G.FIELD_ROWS] != 0:
-                v_check = p_field[0][p_turn % G.FIELD_ROWS]
-            else:
-                v_check = 0
-            count += (p_field[r][p_turn % G.FIELD_ROWS] % 2 == v_check % 2) and (p_field[r][p_turn % G.FIELD_ROWS] != 0)
-        return count == G.FIELD_ROWS
+        for v_row in p_field:
+            count += (v_row[p_turn % G.FIELD_COLUMNS] % 2 == p_turn % 2) \
+                     and (v_row[p_turn % G.FIELD_COLUMNS] != 0)
+        return count == G.COUNT_WIN
 
-    # Проверка текущего хода по диагоналям на выигрыш
     def check_cross() -> bool:
         """по диагонале"""
         #    вход: None
         #    возврат: bool - есть ли на  победная комбинация
+        # Проверка текущего хода по диагоналям на выигрыш
         return False
 
     # результат функции check_win
