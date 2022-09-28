@@ -57,6 +57,7 @@ def input_turn(p_players):
 #   p_turn - номер выбранной клетки
 #   p_field - игровое поле
 def merge_turn_field(p_turn: int, p_field):
+    """функция объединения очередного хода с матицей ходов"""
     turn_number: int = max(sum(p_field, [])) + 1
     p_field[p_turn // c_field_columns][p_turn % c_field_rows] = turn_number
 
@@ -66,6 +67,7 @@ def merge_turn_field(p_turn: int, p_field):
 #   p_player - игрок (0 - играющий Х, 1 - играющий О)
 # возврат: строка игрового поля по домашнему заданию # HW_09.04.txt
 def show_field(p_field, p_players) -> str:
+    """функция объединения очередного хода с матицей ходов"""
     result = ''
     if p_players['curr_player']:
         start_char = ' '*(c_term_width - c_field_width)
@@ -91,16 +93,19 @@ def show_field(p_field, p_players) -> str:
     return result
 
 
-# Проверка выигрышного хода
 #    p_field  - игровое поле
 #    p_turn   - номер хода
-# возврат: bool - есть ли на поле победная комбинация (столбец/строка/диагональ целиком заполненная одним символом)
-# stdout: None
+#
+#     вход: объект с данными о сделанных ходах
+#     возврат: bool - есть ли на поле победная комбинация (столбец/строка/диагональ целиком заполненная одним символом)
+#     stdout: None
 def check_win(p_field, p_turn: int) -> bool:
+    """функция проверки выигрышного хоа"""
     # Проверка текущего хода по горизонтали на выигрыш
     # горизонталь вычисляется как деление нацело хода на количество столбцов
     # количество четных или нечетных должно быть равно 3 по условиям задания
     def check_row() -> bool:
+        """по горионтали"""
         count = 0
         for c in range(c_field_columns):
             count += (p_field[p_turn // c_field_columns][c] % 2 == p_turn % 2) and (p_field[p_turn // c_field_columns][c] != 0)
@@ -109,7 +114,7 @@ def check_win(p_field, p_turn: int) -> bool:
     # Проверка текущего хода по вертикали на выигрыш
     #
     def check_column() -> bool:
-        # return False
+        """по вертикали"""
         count = 0
         for r in range(c_field_rows):
             if p_field[0][p_turn % c_field_rows] != 0:
