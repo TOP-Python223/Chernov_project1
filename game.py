@@ -36,8 +36,7 @@ def merge_turn_field(p_field, p_turn: int):
     #   p_turn - номер выбранной клетки
     #   p_field - игровое поле
     turn_number: int = max(sum(p_field, [])) + 1
-    # так делать можно только до 3х3
-    p_field[p_turn // G.FIELD_ROWS][p_turn % G.FIELD_COLUMNS] = turn_number
+    p_field[p_turn // G.FIELD_COLUMNS][p_turn % G.FIELD_COLUMNS] = turn_number
 
 def show_field(p_field, p_players) -> str:
     """функция возвращает строку игрового поля для отображения"""
