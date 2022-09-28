@@ -14,6 +14,8 @@ FIELD_WIDTH = FIELD_COLUMNS * CELL_WIDTH + FIELD_COLUMNS - 1
 TERM_WIDTH: int = 80
 # символы для обозначения ходов на игровом поле
 MARKS = ('X', 'O')
+# количество одинаковых знаков для победы
+COUNT_WIN: int = 3
 
 
 # структура игрового поля
