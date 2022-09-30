@@ -10,6 +10,7 @@ def input_turn(p_players):
     #   p_player - игроки струкруры, описанной
     # возвращает введенную пользователем строку
     # ИСПОЛЬЗОВАТЬ: приведение к bool
+    v_turn = None
     if p_players['curr_player']:
         sign_char = G.MARKS[1]
     else:
@@ -19,15 +20,21 @@ def input_turn(p_players):
     while True:
         # строка, которую ввел пользователь в запросе хода
         input_string = input(
-            f'Input turn "{pl_name}" for {sign_char} player>'
+            f'Игрок "{pl_name}", играющий за "{sign_char}", введите номер хода>'
         ).strip()
         if input_string.isdecimal():
+            v_turn = int(input_string)
             # доп проверки при необходимости
-            return int(input_string)
+            if (v_turn < 0) or (v_turn > G.FIELD_ROWS * G.FIELD_COLUMNS):
+                print('Номер хода должен быть от 0 до ' + (G.FIELD_ROWS * G.FIELD_COLUMNS - 1))
+            if G.FIELD[v_turn // G.FIELD_COLUMNS][v_turn % G.FIELD_COLUMNS] > 0:
+                print('В это поле уже произведен ход, повторите ввод')
         elif not input_string:
             return ''
         else:
-            print('введите номер ячейки поля или пустую строку если хотите сохранить незавершённую партию и выйти')
+            print('введите номер ячейки поля или пустую строку, если хотите сохранить незавершённую партию и выйти')
+        if not(v_turn is None):
+            return v_turn
 
 def merge_turn_field(p_field, p_turn: int):
     """функция объединения очередного хода с матицей ходов"""
