@@ -76,32 +76,36 @@ def check_win(p_field, p_turn: int) -> bool:
     #    p_turn - 0 ход первого игрока, 1 - второго
     #    возврат: bool - есть ли на поле победная комбинация (столбец/строка/диагональ целиком заполненная одним символом)
     #    stdout: None
+    v_row_num = p_turn // G.FIELD_COLUMNS
+    v_col_num = p_turn % G.FIELD_COLUMNS
+    v_odd = p_field[v_row_num][v_col_num] % 2
     def check_row() -> bool:
         """по горионтали"""
         #    вход: None
         #    возврат: bool - есть ли на горизонтали победная комбинация
         # горизонталь вычисляется как деление нацело хода на количество столбцов
-        # количество четных или нечетных должно быть равно 3 по условиям задания
-        count = 0
-        for c in range(G.FIELD_COLUMNS):
-            count += (p_field[p_turn // G.FIELD_COLUMNS][c] % 2 == p_turn % 2) \
-                     and (p_field[p_turn // G.FIELD_COLUMNS][c] != 0)
-        return count == G.COUNT_WIN
+        # количество четных или нечетных должно быть равно G.COUNT_WIN по условиям задания
+        v_count = 0
+        # print(f'{p_turn=}  {v_odd=}')
+        for c in p_field[v_row_num]:
+            # print(f'{c=}')
+            v_count += (c % 2 == v_odd) and (c != 0)
+        # print(f'{v_count} | {G.COUNT_WIN}')
+        return v_count == G.COUNT_WIN
 
     def check_column() -> bool:
         """по вертикали"""
         #    вход: None
         #    возврат: bool - есть ли на вертикале победная комбинация
         # вертикаль вычисляется как деление нацело хода на количество столбцов
-        # количество четных или нечетных должно быть равно 3 по условиям задания
-        count = 0
+        # количество четных или нечетных должно быть равно G.COUNT_WIN по условиям задания
+        v_count = 0
         for v_row in p_field:
-            count += (v_row[p_turn % G.FIELD_COLUMNS] % 2 == p_turn % 2) \
-                     and (v_row[p_turn % G.FIELD_COLUMNS] != 0)
-        return count == G.COUNT_WIN
+            v_count += (v_row[v_col_num] % 2 == v_odd) and (v_row[v_col_num] != 0)
+        return v_count == G.COUNT_WIN
 
     def check_cross() -> bool:
-        """по диагонале"""
+        """по диагонали"""
         #    вход: None
         #    возврат: bool - есть ли на  победная комбинация
         # Проверка текущего хода по диагоналям на выигрыш
@@ -111,5 +115,5 @@ def check_win(p_field, p_turn: int) -> bool:
     return check_row() or check_column() or check_cross()
 
 
-if __name__ == "__main__":
-    pass
+# if __name__ == "__main__":
+#     pass
