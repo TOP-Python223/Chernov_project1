@@ -8,17 +8,17 @@ G.PLAYERS['player'][1] = {'name': 'Сева', 'age': 14}
 
 while True:
     # отображаем игровое поле
-    str_field = game.show_field(G.FIELD, G.PLAYERS)
+    str_field = game.show_field()
     print(str_field)
     # запрашиваем ход или команду игрока
-    turn = game.input_turn(G.PLAYERS)
+    turn = game.input_turn()
     # выход при пустом вводе (пока)
     if turn == '':
         break
     # заносим ход во внутреннее представление
-    game.merge_turn_field(G.FIELD, int(turn))
+    game.merge_turn_field(int(turn))
     # проверяем на победу
-    if game.check_win(G.FIELD, turn):
+    if game.check_win(turn):
         pl_name = G.PLAYERS['player'][G.PLAYERS['curr_player']]['name']
         print(f"Celebration! {pl_name}, YRW!!!")
     G.PLAYERS['curr_player'] = (G.PLAYERS['curr_player'] + 1) % 2
