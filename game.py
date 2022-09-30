@@ -19,6 +19,7 @@ def input_turn():
     # ИСПОЛЬЗОВАТЬ: цикл для проверки пользовательского ввода
     while True:
         # строка, которую ввел пользователь в запросе хода
+        v_mess = ''
         input_string = input(
             f'Игрок "{pl_name}", играющий за "{sign_char}", введите номер хода>'
         ).strip()
@@ -26,14 +27,16 @@ def input_turn():
             v_turn = int(input_string)
             # доп проверки при необходимости
             if (v_turn < 0) or (v_turn > G.FIELD_ROWS * G.FIELD_COLUMNS):
-                print('Номер хода должен быть от 0 до ' + (G.FIELD_ROWS * G.FIELD_COLUMNS - 1))
-            if G.FIELD[v_turn // G.FIELD_COLUMNS][v_turn % G.FIELD_COLUMNS] > 0:
-                print('В это поле уже произведен ход, повторите ввод')
+                v_mess = f'Номер хода {v_turn} должен быть от 0 до ' + str(G.FIELD_ROWS * G.FIELD_COLUMNS - 1)
+            elif G.FIELD[v_turn // G.FIELD_COLUMNS][v_turn % G.FIELD_COLUMNS] > 0:
+                v_mess = f'В это поле ({v_turn}) уже произведен ход, повторите ввод'
         elif not input_string:
             return ''
         else:
-            print('введите номер ячейки поля или пустую строку, если хотите сохранить незавершённую партию и выйти')
-        if not(v_turn is None):
+            v_mess = 'введите номер ячейки поля или пустую строку, если хотите сохранить незавершённую партию и выйти'
+        if v_mess:
+            print(v_mess)
+        else:
             return v_turn
 
 def merge_turn_field(p_turn: int):
