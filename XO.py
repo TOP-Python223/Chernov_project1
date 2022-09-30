@@ -1,15 +1,17 @@
 """Основной модудуль запуска игры."""
-#                       Глобальные константы
-
 import game
 import g_consts as G
 
+# для тестирования
+G.PLAYERS['player'][0] = {'name': 'Паша', 'age': 11}
+G.PLAYERS['player'][1] = {'name': 'Сева', 'age': 14}
+
 while True:
     # отображаем игровое поле
-    str_field = game.show_field(G.FIELD, g_players)
+    str_field = game.show_field(G.FIELD, G.PLAYERS)
     print(str_field)
     # запрашиваем ход или команду игрока
-    turn = game.input_turn(g_players)
+    turn = game.input_turn(G.PLAYERS)
     # выход при пустом вводе (пока)
     if turn == '':
         break
@@ -17,6 +19,6 @@ while True:
     game.merge_turn_field(G.FIELD, int(turn))
     # проверяем на победу
     if game.check_win(G.FIELD, turn):
-        pl_name = g_players['player'][g_players['curr_player']]['name']
+        pl_name = G.PLAYERS['player'][G.PLAYERS['curr_player']]['name']
         print(f"Celebration! {pl_name}, YRW!!!")
-    g_players['curr_player'] = (g_players['curr_player'] + 1) % 2
+    G.PLAYERS['curr_player'] = (G.PLAYERS['curr_player'] + 1) % 2
