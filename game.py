@@ -2,8 +2,7 @@
 #                       Функции ввода-вывода
 # -----------------------------------------------------------------------------
 
-# from contstants import G_CELL_WIDTH, G_FIELD_COLUMNS, G_FIELD_ROWS, G_FIELD_WIDTH, G_TERM_WIDTH, G_MARKS
-import g_cont as G
+import g_consts as G
 
 def input_turn(p_players):
     """Функция запроса ввода команды или хота игрока."""
@@ -76,15 +75,17 @@ def check_win(p_field, p_turn: int) -> bool:
     #    p_turn - 0 ход первого игрока, 1 - второго
     #    возврат: bool - есть ли на поле победная комбинация (столбец/строка/диагональ целиком заполненная одним символом)
     #    stdout: None
+    # номер строки хода
     v_row_num = p_turn // G.FIELD_COLUMNS
+    # номер колонки хода
     v_col_num = p_turn % G.FIELD_COLUMNS
+    # 1 - ход игрока 1, 0 - ход игрока 2
     v_odd = p_field[v_row_num][v_col_num] % 2
     def check_row() -> bool:
         """по горионтали"""
         #    вход: None
         #    возврат: bool - есть ли на горизонтали победная комбинация
-        # горизонталь вычисляется как деление нацело хода на количество столбцов
-        # количество четных или нечетных должно быть равно G.COUNT_WIN по условиям задания
+        # количество четных или нечетных должно быть равно G.COUNT_WIN
         v_count = 0
         # print(f'{p_turn=}  {v_odd=}')
         for c in p_field[v_row_num]:
@@ -104,15 +105,54 @@ def check_win(p_field, p_turn: int) -> bool:
             v_count += (v_row[v_col_num] % 2 == v_odd) and (v_row[v_col_num] != 0)
         return v_count == G.COUNT_WIN
 
-    def check_cross() -> bool:
-        """по диагонали"""
+    def check_cross_0() -> bool:
+        """по диагонали право-верх:лево-низ"""
         #    вход: None
-        #    возврат: bool - есть ли на  победная комбинация
-        # Проверка текущего хода по диагоналям на выигрыш
-        return False
+        #    возврат: bool - есть ли на диагонали победная комбинация
+        v_count = 1
+        i_loop = 1
+        while True:
+            i_row_num = v_row_num - i_loop
+            i_col_num = v_col_num + i_loop
+            if (i_row_num >= 0) and (i_col_num < G.FIELD_COLUMNS):
+                v_count += (p_field[i_row_num][i_col_num] % 2 == v_odd) and (p_field[i_row_num][i_col_num] != 0)
+            i_row_num = v_row_num + i_loop
+            i_col_num = v_col_num - i_loop
+            if (i_row_num < G.FIELD_ROWS) and (i_col_num >= 0):
+                v_count += (p_field[i_row_num][i_col_num] % 2 == v_odd) and (p_field[i_row_num][i_col_num] != 0)
+            i_loop += 1
+            if (v_row_num - i_loop < 0) and \
+                (v_col_num - i_loop < 0) and \
+                (v_row_num + i_loop >= G.FIELD_ROWS) and \
+                (v_col_num + i_loop >= G.FIELD_COLUMNS):
+                break
+        return v_count == G.COUNT_WIN
+    def check_cross_1() -> bool:
+        """по диагонали лево-верх:право-низ"""
+        #    вход: None
+        #    возврат: bool - есть ли на обратной диагонали победная комбинация
+        v_count = 1
+        i_loop = 1
+        while True:
+            i_row_num = v_row_num - i_loop
+            i_col_num = v_col_num - i_loop
+            if (i_row_num >= 0) and (i_col_num >= 0):
+                v_count += (p_field[i_row_num][i_col_num] % 2 == v_odd) and (p_field[i_row_num][i_col_num] != 0)
+            i_row_num = v_row_num + i_loop
+            i_col_num = v_col_num + i_loop
+            if (i_row_num < G.FIELD_ROWS) and (i_col_num < G.FIELD_COLUMNS):
+                v_count += (p_field[i_row_num][i_col_num] % 2 == v_odd) and (p_field[i_row_num][i_col_num] != 0)
+
+            i_loop += 1
+            if (v_row_num - i_loop < 0) and \
+                (v_col_num - i_loop < 0) and \
+                (v_row_num + i_loop >= G.FIELD_ROWS) and \
+                (v_col_num + i_loop >= G.FIELD_COLUMNS):
+                break
+        return v_count == G.COUNT_WIN
 
     # результат функции check_win
-    return check_row() or check_column() or check_cross()
+    return check_row() or check_column() or check_cross_0() or check_cross_1()
 
 
 # if __name__ == "__main__":
