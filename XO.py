@@ -6,6 +6,7 @@ import g_consts as G
 G.PLAYERS['player'][0] = {'name': 'Паша', 'age': 11}
 G.PLAYERS['player'][1] = {'name': 'Сева', 'age': 14}
 
+# цикл на одну партию
 while True:
     # отображаем игровое поле
     str_field = game.show_field()
@@ -20,5 +21,8 @@ while True:
     # проверяем на победу
     if game.check_win(turn):
         pl_name = G.PLAYERS['player'][G.PLAYERS['curr_player']]['name']
-        print(f"Celebration! {pl_name}, YRW!!!")
+        print(f"Поздравляем! Игрок {pl_name}, Вы выиграли!!!")
+        break
+    elif game.check_draw():
+        print("Ребята! Ваша партия закончена вничью! Пожмите друг другу руки!")
     G.PLAYERS['curr_player'] = (G.PLAYERS['curr_player'] + 1) % 2

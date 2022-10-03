@@ -75,10 +75,10 @@ def show_field() -> str:
     return result
 
 def check_draw() -> bool:
-    """функция проверки законности партии, когда все поля заполнены"""
+    """функция проверки законченности партии, когда все поля заполнены"""
     #    вход:
     #    возврат: bool - совпадает ли максимальный ход на поле с его размерностью
-    max(sum(G.FIELD, [])) == G.FIELD_ROWS * G.FIELD_WIDTH - 1
+    return max(sum(G.FIELD, [])) == G.FIELD_ROWS * G.FIELD_COLUMNS - 1
 
 
 def check_win(p_turn: int) -> bool:
